@@ -25,6 +25,7 @@ function stopColorChangeInterval() {
 
 const imageContainer = document.querySelector('.image-container');
 const audio = document.getElementById('audio');
+audio.volume = 0.5;
 const imageElement = document.getElementById('image');
 const dialogueContainer = document.querySelector('.dialogue-container'); // Add this line
 const resume = document.querySelector('.resume')
@@ -80,11 +81,14 @@ imageContainer.addEventListener('click', () => {
         // Show the dialogue box (position is handled in CSS now)
         dialogueContainer.style.display = 'block';
     } else {
-        imageContainer.classList.remove('image-clicked'); // Stop the spin animation
-        isImageClicked = false;
+    imageContainer.classList.remove('image-clicked'); // Stop the spin animation
+    isImageClicked = false;
 
-        dialogueContainer.style.display = 'none';
-    }
+    dialogueContainer.style.display = 'none';
+
+    // Show "Click me" again
+    clickMeText.style.display = 'block';
+}
 
 });
 

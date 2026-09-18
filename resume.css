@@ -1,18 +1,18 @@
 *, *::before, *::after {
-    box-sizing: border-box; /* padding/border no longer add to an element's declared width */
+    box-sizing: border-box;
 }
 
 html, body {
     margin: 0;
-    overflow-x: hidden; /* safety net in case any hover transform still bleeds past the edge */
+    overflow-x: hidden;
 }
 
-.main_container{
-    width: 100%; /* Adjust the width as needed */
-    max-width: 175vh; /* Maximum width for the "paper" */
-    margin: 0 auto; /* Center horizontally */
-    padding: 5px; /* Add some padding to mimic the margins on a piece of paper */
-    background-color: white; /* Set a background color to mimic a white piece of paper */
+.main_container {
+    width: 100%;
+    max-width: 175vh;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: white;
     position: relative;
 }
 
@@ -23,7 +23,7 @@ html, body {
 
 .header_left {
     flex: 1;
-    position: relative; /* anchor point so the dialogue bubble tracks the image, not the whole page */
+    position: relative;
 }
 
 .header_right {
@@ -31,94 +31,149 @@ html, body {
     text-align: right;
 }
 
-/* Add necessary styles for the container and image */
+
+/* =========================
+   PROFILE PICTURE
+   ========================= */
+
 .image-container {
-    width: 200px; /* Adjust container width as needed */
-    height: 200px; /* Adjust container height as needed */
+    width: 200px;
+    height: 200px;
     overflow: hidden;
-    border-radius: 50%; /* Make the container circular */
+    border-radius: 50%;
     position: relative;
-    transition: transform 1.5s; /* Add smooth transition for scaling */
     margin: 0;
 }
 
-/* Add hover effect */
-.image-container:hover {
-    transform: scale(3.5); /* Expand the container on hover */
-}
-
 .zoom-image {
-    width: 100%; /* Initially, image is 100% of container size */
-    height: 100%; /* Initially, image is 100% of container size */
-    transition: transform 0.3s, width 0.3s, height 0.3s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Add hover effect */
-.image-container:hover .zoom-image {
-    transform: scale(1.3) rotate(15deg); /* Scale and rotate the image on hover */
-    width: 120%; /* Expand the image width */
-    height: 120%; /* Expand the image height */
-    animation: 
-    spin 1s infinite linear; /* Apply the spinning animation */
+/* Continuously expand/contract when clicked */
+.image-container.image-clicked {
+    animation: expandContract 0.7s ease-in-out infinite alternate;
 }
 
-/* Add a separate rule for the spinning animation */
+/* Continuously spin when clicked */
 .image-container.image-clicked .zoom-image {
-    animation: spin 1s infinite linear; /* Apply the spinning animation */
-    transform: scale(1) rotate(0deg); /* Return the image to normal size and rotation */
+    animation: spin 1s infinite linear;
 }
 
-/* Define the spinning animation */
 @keyframes spin {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Define the color change animation */
+@keyframes expandContract {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(5);
+    }
+}
+
+
+/* =========================
+   RESUME OCEAN RIPPLE EFFECT
+   ========================= */
+
+/*
+   Your JavaScript already adds the "wiggle" class
+   to .resume when the profile picture is clicked.
+
+   Instead of shaking the entire resume back and forth,
+   this SVG filter actually distorts the resume contents.
+*/
+.wiggle {
+    filter: url("#ocean-wave");
+
+    /* Very small floating motion on top of the ripple */
+    animation: oceanFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes oceanFloat {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    25% {
+        transform: translateY(-2px) scale(1.003);
+    }
+
+    50% {
+        transform: translateY(2px) scale(1.006);
+    }
+
+    75% {
+        transform: translateY(-1px) scale(1.003);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================
+   BACKGROUND COLOR EFFECT
+   ========================= */
+
 @keyframes colorChange {
     0% {
         background-color: red;
     }
+
     20% {
         background-color: green;
     }
+
     40% {
         background-color: yellow;
     }
+
     60% {
         background-color: purple;
     }
+
     80% {
         background-color: pink;
     }
+
     100% {
         background-color: red;
     }
 }
 
-/* Apply color change animation when the class is added */
 .resume.color-change {
     animation: colorChange 1s linear forwards;
 }
 
-/* Section styles */
+
+/* =========================
+   RESUME STYLES
+   ========================= */
+
 h1 {
     text-align: center;
 }
 
 h2 {
     margin-top: 5px;
-    border-bottom: 1px solid #000; /* Add a solid underline beneath the section headers */
-
+    border-bottom: 1px solid #000;
 }
 
 .date {
-    float: right; /* Align dates to the right */
-    font-weight: bold; /* Make dates bold */
+    float: right;
+    font-weight: bold;
 }
 
 ul {
@@ -128,16 +183,20 @@ ul {
 
 .skills {
     display: flex;
-    flex-direction: column; /* Display skills in a column layout */
+    flex-direction: column;
 }
 
 .skills p {
-    margin: 0; /* Remove default paragraph margins */
-    padding-left: 20px; /* Add left padding for better alignment */
-    text-indent: -20px; /* Counteract the left padding for the first line */
+    margin: 0;
+    padding-left: 20px;
+    text-indent: -20px;
 }
 
-/* Add styles for the "Click me" text */
+
+/* =========================
+   CLICK ME
+   ========================= */
+
 .click-me {
     position: absolute;
     top: 50%;
@@ -151,52 +210,39 @@ ul {
     transition: opacity 0.3s;
 }
 
-/* Hide the "Click me" text when the image is clicked */
 .image-container.clicked .click-me {
     opacity: 0;
-    pointer-events: none; /* Disable pointer events so it can't be clicked again */
+    pointer-events: none;
 }
+
+
+/* =========================
+   DIALOGUE BOX
+   ========================= */
+
 .dialogue-container {
     position: absolute;
-    top: 30px; /* image is 200px tall (center = 100px); this sits a bit above center */
-    left: 210px; /* just right of the 200px image, instead of a page-wide pixel offset */
+    top: 30px;
+    left: 210px;
     max-width: 200px;
-    background-color: rgba(0, 0, 0, 0.0); /* Adjust the alpha (0.5) to control transparency */
+    background-color: rgba(0, 0, 0, 0);
     color: white;
     padding: 10px;
     border-radius: 5px;
     transition: opacity 0.3s;
-    font-size: 14px; /* Adjust the font size if needed */
+    font-size: 14px;
 }
 
 .dialogue-container img {
     max-width: 100%;
     height: auto;
 }
-.wiggle {
-    animation: wavy 0.5s infinite alternate;
-}
 
-@keyframes wavy {
-    0% {
-        transform: translateY(0) rotate(0deg) skewX(0deg) scaleY(1);
-    }
-    25% {
-        transform: translateY(-10px) rotate(2deg) skewX(5deg) scaleY(0.9);
-    }
-    50% {
-        transform: translateY(10px) rotate(-2deg) skewX(-5deg) scaleY(1.1);
-    }
-    75% {
-        transform: translateY(-10px) rotate(2deg) skewX(5deg) scaleY(0.9);
-    }
-    100% {
-        transform: translateY(0) rotate(0deg) skewX(0deg) scaleY(1);
-    }
-}
 
-/* Below this width, the two header columns get too narrow to sit side by side
-   without the dialogue bubble's absolute position colliding with header_right. */
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
@@ -208,7 +254,7 @@ ul {
     }
 
     .dialogue-container {
-        position: static; /* back into normal document flow, so it can't overlap anything */
+        position: static;
         max-width: none;
         margin-top: 10px;
     }
