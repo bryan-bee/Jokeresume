@@ -158,7 +158,7 @@ ul {
 }
 .dialogue-container {
     position: absolute;
-    top: -10px;
+    top: 30px; /* image is 200px tall (center = 100px); this sits a bit above center */
     left: 210px; /* just right of the 200px image, instead of a page-wide pixel offset */
     max-width: 200px;
     background-color: rgba(0, 0, 0, 0.0); /* Adjust the alpha (0.5) to control transparency */
