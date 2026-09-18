@@ -1,3 +1,9 @@
+:root {
+    /* Multiplier applied to the wobble effect's movement/rotation/skew.
+       1 = the original subtle amount, 2 = current default (2x), etc. */
+    --wobble-strength: 7;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -83,42 +89,38 @@ html, body {
 
 
 /* =========================
-   RESUME OCEAN RIPPLE EFFECT
+   WOBBLE EFFECT
    ========================= */
 
 /*
-   Your JavaScript already adds the "wiggle" class
-   to .resume when the profile picture is clicked.
-
-   Instead of shaking the entire resume back and forth,
-   this SVG filter actually distorts the resume contents.
+   Your JavaScript adds the "wiggle" class to the title, contact info,
+   and .resume when the profile picture is clicked. This is a plain
+   CSS transform (cheap, GPU-friendly), unlike the SVG filter this
+   replaced, so it stays smooth even on mobile.
 */
 .wiggle {
-    filter: url("#ocean-wave");
-
-    /* Very small floating motion on top of the ripple */
-    animation: oceanFloat 2.5s ease-in-out infinite;
+    animation: wavy 0.6s ease-in-out infinite alternate;
 }
 
-@keyframes oceanFloat {
+@keyframes wavy {
     0% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0) rotate(0deg) skewX(0deg);
     }
 
     25% {
-        transform: translateY(-2px) scale(1.003);
+        transform: translateY(calc(-4px * var(--wobble-strength))) rotate(calc(1.5deg * var(--wobble-strength))) skewX(calc(3deg * var(--wobble-strength)));
     }
 
     50% {
-        transform: translateY(2px) scale(1.006);
+        transform: translateY(calc(4px * var(--wobble-strength))) rotate(calc(-1.5deg * var(--wobble-strength))) skewX(calc(-3deg * var(--wobble-strength)));
     }
 
     75% {
-        transform: translateY(-1px) scale(1.003);
+        transform: translateY(calc(-2px * var(--wobble-strength))) rotate(calc(1deg * var(--wobble-strength))) skewX(calc(2deg * var(--wobble-strength)));
     }
 
     100% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0) rotate(0deg) skewX(0deg);
     }
 }
 

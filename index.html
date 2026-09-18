@@ -181,25 +181,6 @@
         Your browser does not support the audio element.
     </audio>
     <script src="script.js"></script>
-    <svg width="0" height="0" style="position:absolute;">
-        <filter id="ocean-wave">
-            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.025" numOctaves="2" seed="3" result="noise">
-
-                <animate attributeName="baseFrequency" dur="2s" values="
-                    0.008 0.025;
-                    0.012 0.035;
-                    0.006 0.020;
-                    0.010 0.030;
-                    0.008 0.025
-                " repeatCount="indefinite" />
-            </feTurbulence>
-
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="B">
-
-                <animate attributeName="scale" dur="1.5s" values="8;25;14;30;8" repeatCount="indefinite" />
-            </feDisplacementMap>
-        </filter>
-    </svg>
 </body>
 
 </html>
