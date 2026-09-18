@@ -29,6 +29,7 @@ audio.volume = 0.5;
 const imageElement = document.getElementById('image');
 const dialogueContainer = document.querySelector('.dialogue-container'); // Add this line
 const resume = document.querySelector('.resume')
+const wiggleTargets = [document.querySelector('h1'), document.querySelector('.header_right'), resume];
 let isImage1 = true;
 let isImageClicked = false;
 // Variable to track if the image is wiggling
@@ -65,11 +66,11 @@ imageContainer.addEventListener('click', () => {
     if (isImage1) {
         imageElement.src = 'wake.jpg'; // Change to the second image
         imageElement.alt = 'Image 2'; // Update alt text if needed
-        resume.classList.add('wiggle');
+        wiggleTargets.forEach(el => el.classList.add('wiggle'));
     } else {
         imageElement.src = '379907128_792514029339391_3760204760494117783_n (1).jpg'; // Change back to the first image
         imageElement.alt = 'Image 1'; // Update alt text if needed
-        resume.classList.remove('wiggle');
+        wiggleTargets.forEach(el => el.classList.remove('wiggle'));
     }
     
     isImage1 = !isImage1; // Toggle the image flag

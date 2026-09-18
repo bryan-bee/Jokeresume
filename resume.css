@@ -244,18 +244,29 @@ ul {
    ========================= */
 
 @media (max-width: 600px) {
-    .header {
-        flex-direction: column;
+    /* Keep header as a row (image left, contact info right) instead of
+       stacking them, so activating the effect never adds page height. */
+    .image-container {
+        width: 120px;
+        height: 120px;
     }
 
     .header_right {
-        text-align: left;
-        margin-top: 10px;
+        font-size: 0.7rem;
     }
 
+    .click-me {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    /* Stays an absolutely-positioned overlay (like on desktop) so it goes
+       over the contact info instead of pushing it, just resized/repositioned
+       to match the smaller mobile picture. */
     .dialogue-container {
-        position: static;
-        max-width: none;
-        margin-top: 10px;
+        top: 10px;
+        left: 130px;
+        max-width: 160px;
+        font-size: 12px;
     }
 }
