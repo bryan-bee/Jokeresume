@@ -74,15 +74,17 @@ imageContainer.addEventListener('click', () => {
     isImage1 = !isImage1; // Toggle the image flag
 
     if (!isImageClicked) {
-        imageContainer.classList.add('image-clicked'); // Add a class to trigger the animation
+        imageContainer.classList.add('image-clicked'); // Start the spin animation
         isImageClicked = true;
 
-        // Show the dialogue box and position it absolutely
+        // Show the dialogue box (position is handled in CSS now)
         dialogueContainer.style.display = 'block';
-        dialogueContainer.style.top = '100px'; // Adjust the top position as needed
-        dialogueContainer.style.left = '300px'; // Adjust the left position as needed
+    } else {
+        imageContainer.classList.remove('image-clicked'); // Stop the spin animation
+        isImageClicked = false;
+
+        dialogueContainer.style.display = 'none';
     }
-    
 
 });
 

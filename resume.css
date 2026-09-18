@@ -1,3 +1,12 @@
+*, *::before, *::after {
+    box-sizing: border-box; /* padding/border no longer add to an element's declared width */
+}
+
+html, body {
+    margin: 0;
+    overflow-x: hidden; /* safety net in case any hover transform still bleeds past the edge */
+}
+
 .main_container{
     width: 100%; /* Adjust the width as needed */
     max-width: 175vh; /* Maximum width for the "paper" */
@@ -14,6 +23,7 @@
 
 .header_left {
     flex: 1;
+    position: relative; /* anchor point so the dialogue bubble tracks the image, not the whole page */
 }
 
 .header_right {
@@ -148,14 +158,20 @@ ul {
 }
 .dialogue-container {
     position: absolute;
+    top: -10px;
+    left: 210px; /* just right of the 200px image, instead of a page-wide pixel offset */
+    max-width: 200px;
     background-color: rgba(0, 0, 0, 0.0); /* Adjust the alpha (0.5) to control transparency */
     color: white;
     padding: 10px;
     border-radius: 5px;
-    transform: translate(-50%, -50%);
     transition: opacity 0.3s;
     font-size: 14px; /* Adjust the font size if needed */
+}
 
+.dialogue-container img {
+    max-width: 100%;
+    height: auto;
 }
 .wiggle {
     animation: wavy 0.5s infinite alternate;
@@ -176,5 +192,24 @@ ul {
     }
     100% {
         transform: translateY(0) rotate(0deg) skewX(0deg) scaleY(1);
+    }
+}
+
+/* Below this width, the two header columns get too narrow to sit side by side
+   without the dialogue bubble's absolute position colliding with header_right. */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .header_right {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .dialogue-container {
+        position: static; /* back into normal document flow, so it can't overlap anything */
+        max-width: none;
+        margin-top: 10px;
     }
 }
